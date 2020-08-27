@@ -12,7 +12,7 @@ export function Work() {
         },
         {
             title: "RisikOnline",
-            description: "An HTML multiplayer game based on the ruleset of the board game Risk.",
+            description: "An HTML multiplayer game based on the ruleset of the board game Risk. Never released sadly.",
             url: "https://risikonline.herokuapp.com/",
             image: "/risk.png"
         },
@@ -36,7 +36,7 @@ export function Work() {
         },
         {
             title: "Poker",
-            description: "A simple lobby based Poker game to play with your friends. Emerged due to COVID and the social distancing rules.",
+            description: "A simple lobby based Poker game to play with your friends. Emerged due to COVID and the social distancing rules. Work still in progress",
             github: "https://github.com/drdreo/poker",
             image: "/poker.png"
         },
@@ -55,7 +55,7 @@ export function Work() {
         },
         {
             title: "Funkography",
-            description: "A photographer portfolio website.",
+            description: "A photographer portfolio website. First prototype. Work still in progress.",
             url: "https://funkography.netlify.app/",
             github: "https://github.com/drdreo/funkography",
             image: "/funky.png"
