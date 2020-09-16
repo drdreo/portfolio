@@ -59,6 +59,20 @@ export function Work() {
             url: "https://funkography.netlify.app/",
             github: "https://github.com/drdreo/funkography",
             image: "/funky.png"
+        },
+        {
+            title: "Electro Ultraways",
+            description: "A ultraway slot machine. Fun project, created to experiment with React.",
+            url: "https://electro-slot.herokuapp.com/",
+            github: "https://github.com/drdreo/electro-slot",
+            image: "/slot.png"
+        },
+        {
+            title: "Reddit Clone",
+            description: "A simple reddit clone. Mirrors the basic reader functionality of reddit with a straightforward interface.",
+            url: "https://better-reddit.herokuapp.com/",
+            github: "https://github.com/drdreo/better-reddit",
+            image: "/reddit.png"
         }
 
     ];
