@@ -8,6 +8,8 @@ export default function Home() {
             <Head>
                 <title>Portfolio | Andreas Hahn</title>
                 <link rel="icon" href="/favicon.ico"/>
+                <meta name="description" content="Portfolio of Andreas Hahn" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
             <main>
