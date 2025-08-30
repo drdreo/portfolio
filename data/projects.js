@@ -14,8 +14,9 @@ export const projects = [
     {
         title: "KCDice",
         description: "A Kingdom Come Deliverance inspired multiplayer dice game. <angular, golang>",
-        github: "https://kcdice.drdreo.com",
-        image: "/kcdice.png"
+        url: "https://kcdice.drdreo.com",
+        image: "/kcdice.png",
+        github: "https://github.com/drdreo/hub/tree/master/apps/gameserver/games/dicegame"
     },
     {
         title: "lit-scss-loader",
