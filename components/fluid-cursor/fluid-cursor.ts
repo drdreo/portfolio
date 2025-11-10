@@ -24,14 +24,15 @@ const defaultConfig = {
     paused: false,
     backColor: { r: 0, g: 0, b: 0 },
     transparent: true,
-    id: "smokey-fluid-canvas",
 };
 
 /**
  * Initializes and starts the fluid simulation
  * @param incomingConfig - Partial configuration object to override default settings
  */
-export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig>) => {
+export const initFluid = (
+    incomingConfig: Partial<ISmokeyFluidConfig> & { canvas: HTMLCanvasElement },
+) => {
     // Merge incoming config with defaults
     const config: ISmokeyFluidConfig = { ...defaultConfig, ...incomingConfig };
 
@@ -39,20 +40,13 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig>) => {
     // Exit if canvas not found
     if (!canvas) return;
 
-    // Create and inject CSS styles for the canvas
-    const style = document.createElement("style");
-    style.textContent = `
-    #${config.id} {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -9999;
-    }
-  `;
-    document.head.appendChild(style);
+    // Create CSS styles for the canvas
+    canvas.style.setProperty("top", "0");
+    canvas.style.setProperty("left", "0");
+    canvas.style.setProperty("width", "100vw");
+    canvas.style.setProperty("height", "100vh");
+    canvas.style.setProperty("position", "fixed");
+    canvas.style.setProperty("pointer-events", "none");
 
     // Set initial canvas size
     resizeCanvas();

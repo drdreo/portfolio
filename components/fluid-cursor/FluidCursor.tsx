@@ -28,14 +28,14 @@ export const FluidCursor = () => {
     return (
         <canvas
             ref={canvasRef}
-            style={{
-                display: "blocked",
-                position: "fixed",
-                top: 0,
-                width: "100vw",
-                height: "100vh",
-                // zIndex: "9999"
-            }}
+            // style={{
+            //     display: "blocked",
+            //     position: "fixed",
+            //     top: 0,
+            //     width: "100vw",
+            //     height: "100vh",
+            //     // zIndex: "9999"
+            // }}
         />
     );
 };
