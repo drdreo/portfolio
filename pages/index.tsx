@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Hero } from "../components/Hero";
 import { TechStack } from "../components/TechStack";
 import { Work } from "../components/Work";
-import { FluidCursor } from "../components/FluidCursor";
+import { FluidCursor } from "../components/fluid-cursor/FluidCursor.tsx";
 
 const Home: FC = () => {
     return (
