@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap");
+
+:root {
+    --bg-primary: #0f0f23;
+    --bg-secondary: #1a1a2e;
+    --text-primary: rgba(255, 255, 255, 0.95);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family:
+        "Plus Jakarta Sans",
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+body {
+    background: linear-gradient(
+        to bottom,
+        #0f0f23 0%,
+        #1a1a2e 50%,
+        #0f0f23 100%
+    );
+    background-attachment: fixed;
+}
+
+.main {
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
+
+    a,
+    button {
+        cursor: none !important;
+    }
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.5);
+}
+
+/* Selection color */
+::selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: var(--text-primary);
+}
+
+/* No-JS fallback */
+.no-js * {
+    cursor: auto !important;
+}

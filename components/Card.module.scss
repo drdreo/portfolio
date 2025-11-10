@@ -1,63 +1,182 @@
 .card {
-    margin: 1rem;
-    flex-basis: 45%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     overflow: hidden;
-
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
 
-    text-align: left;
-    color: inherit;
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(102, 126, 234, 0.5);
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            0 0 40px rgba(102, 126, 234, 0.2);
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.8) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .card:hover &::after {
+        opacity: 1;
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+
+    .card:hover & {
+        transform: scale(1.05);
+    }
+}
+
+.imageOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+}
+
+.content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+
+    .card:hover & {
+        color: #667eea;
+    }
+}
+
+.arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+
+    .card:hover & {
+        transform: translateX(5px);
+    }
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    flex: 1;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(102, 126, 234, 0.2);
+    color: rgba(102, 126, 234, 1);
+    border-radius: 6px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    .card:hover & {
+        background: rgba(102, 126, 234, 0.3);
+        border-color: rgba(102, 126, 234, 0.5);
+    }
+}
+
+.githubLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
     text-decoration: none;
-    border: 1px solid #eaeaea;
-    border-radius: 10px;
-    transition:
-        color 0.15s ease,
-        border-color 0.15s ease;
+    transition: color 0.3s ease;
+    margin-top: 0.5rem;
+    width: fit-content;
 
     &:hover {
-        .card__details {
-            opacity: 1;
-        }
+        color: rgba(255, 255, 255, 1);
     }
 
-    &:hover,
-    &:focus,
-    &:active {
-        color: #daa520;
-        border-color: #daa520;
+    svg {
+        transition: transform 0.3s ease;
     }
 
-    h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
+    &:hover svg {
+        transform: scale(1.1);
+    }
+}
+
+@media (max-width: 768px) {
+    .imageWrapper {
+        height: 200px;
     }
 
-    p {
-        margin: 0;
+    .content {
+        padding: 1.5rem;
+    }
+
+    .title {
         font-size: 1.25rem;
-        line-height: 1.5;
-        color: black;
     }
 
-    a:hover {
-        color: #daa520;
+    .description {
+        font-size: 0.95rem;
     }
 }
 
-.card__image {
-    opacity: 1;
-    width: 100%;
-    min-height: 200px;
-    object-fit: cover;
-}
-
-.card__details {
-    padding: 1.5rem;
-}
-
-@media (max-width: 700px) {
-    .card {
-        flex-basis: 100%;
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .image,
+    .arrow,
+    .tag,
+    .githubLink svg {
+        transition: none;
     }
 }

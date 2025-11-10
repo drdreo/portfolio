@@ -1,0 +1,151 @@
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+.content {
+    max-width: 900px;
+    z-index: 1;
+    text-align: center;
+}
+
+.greeting {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.name {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.nameGradient {
+    background: linear-gradient(
+        135deg,
+        #daa420 0%,
+        #f0c75e 25%,
+        #f093fb 50%,
+        #4facfe 75%,
+        #daa420 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.02em;
+}
+
+.tagline {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    line-height: 1.6;
+}
+
+.scrollIndicator {
+    margin-top: 4rem;
+}
+
+.scrollArrow {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+.backgroundGradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(
+            ellipse at 20% 30%,
+            rgba(102, 126, 234, 0.15) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            ellipse at 80% 70%,
+            rgba(118, 75, 162, 0.15) 0%,
+            transparent 50%
+        );
+    filter: blur(60px);
+    opacity: 0.7;
+    z-index: 0;
+}
+
+// Respect reduced motion
+@media (prefers-reduced-motion: reduce) {
+    .nameGradient {
+        animation: none;
+        background: linear-gradient(135deg, #daa420 0%, #f0c75e 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+}
+
+// Mobile adjustments
+@media (max-width: 768px) {
+    .hero {
+        min-height: 100svh;
+    }
+
+    .content {
+        padding: 1rem;
+    }
+
+    .greeting {
+        margin-bottom: 0.5rem;
+    }
+
+    .name {
+        margin-bottom: 0.5rem;
+    }
+
+    .title {
+        margin-bottom: 1rem;
+    }
+
+    .tagline {
+        margin-bottom: 2rem;
+    }
+
+    .scrollIndicator {
+        margin-top: 2rem;
+    }
+}

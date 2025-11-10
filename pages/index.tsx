@@ -1,70 +1,35 @@
 import { FC } from "react";
 import Head from "next/head";
-import { Welcome } from "../components/Welcome";
+import { Hero } from "../components/Hero";
+import { TechStack } from "../components/TechStack";
 import { Work } from "../components/Work";
+import { FluidCursor } from "../components/fluid-cursor/FluidCursor.tsx";
 
 const Home: FC = () => {
     return (
-        <div className="container">
+        <>
             <Head>
-                <title>Portfolio | Andreas Hahn</title>
+                <title>Andreas Hahn | Full-Stack Engineer</title>
                 <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content="Portfolio of Andreas Hahn" />
+                <meta
+                    name="description"
+                    content="Full-stack engineer crafting high-performance web experiences with modern technologies and meticulous attention to detail."
+                />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
+                <meta name="theme-color" content="#0f0f23" />
             </Head>
 
-            <main>
-                <Welcome />
+            <FluidCursor />
+
+            <main className="main">
+                <Hero />
+                <TechStack />
                 <Work />
             </main>
-
-            <style jsx>{`
-                .container {
-                    min-height: 100vh;
-                    padding: 0 0.5rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                main {
-                    padding: 5rem 0;
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
-            `}</style>
-
-            <style jsx global>{`
-                html,
-                body {
-                    padding: 0;
-                    margin: 0;
-                    font-family:
-                        -apple-system,
-                        BlinkMacSystemFont,
-                        Segoe UI,
-                        Roboto,
-                        Oxygen,
-                        Ubuntu,
-                        Cantarell,
-                        Fira Sans,
-                        Droid Sans,
-                        Helvetica Neue,
-                        sans-serif;
-                }
-
-                * {
-                    box-sizing: border-box;
-                }
-            `}</style>
-        </div>
+        </>
     );
 };
 

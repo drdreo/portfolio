@@ -1,20 +1,75 @@
-import { FC } from "react";
+"use client";
+import { FC, useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import styles from "./Work.module.scss";
 import { ProjectCard } from "./ProjectCard.tsx";
 import { projects } from "../data/projects";
 
 export const Work: FC = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        );
+        setPrefersReducedMotion(mediaQuery.matches);
+
+        const handleChange = (e: MediaQueryListEvent) => {
+            setPrefersReducedMotion(e.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, []);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+            },
+        },
+    };
+
+    const MotionComponent = prefersReducedMotion ? "div" : motion.div;
+
     return (
-        <div className={styles.container}>
-            <div className={styles.grid}>
-                {projects.map((project, idx) => (
-                    <ProjectCard
-                        key={project.title}
-                        {...project}
-                        orientation={idx % 2 === 0 ? "bot" : "top"}
-                    />
-                ))}
+        <section className={styles.section} ref={containerRef}>
+            <div className={styles.container}>
+                <MotionComponent
+                    className={styles.header}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={
+                        isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                    }
+                    transition={{ duration: 0.6 }}
+                >
+                    <h2 className={styles.title}>Featured Projects</h2>
+                    <p className={styles.subtitle}>
+                        A selection of projects showcasing full-stack
+                        development, real-time applications, and creative
+                        problem-solving
+                    </p>
+                </MotionComponent>
+
+                <MotionComponent
+                    className={styles.grid}
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                >
+                    {projects.map((project, idx) => (
+                        <ProjectCard
+                            key={project.title}
+                            {...project}
+                            index={idx}
+                        />
+                    ))}
+                </MotionComponent>
             </div>
-        </div>
+        </section>
     );
 };
