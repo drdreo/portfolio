@@ -43,8 +43,7 @@ export const projects: Project[] = [
     },
     {
         title: "Owe Drahn",
-        description:
-            "A dice roller gambling game to play with your friends.",
+        description: "A dice roller gambling game to play with your friends.",
         url: "https://owe-drahn.drdreo.com/",
         github: "https://github.com/drdreo/owe-drahn",
         image: "/owe-drahn.png",
@@ -52,8 +51,7 @@ export const projects: Project[] = [
     },
     {
         title: "Habi",
-        description:
-            "A habit tracker web app. Simply track anything.",
+        description: "A habit tracker web app. Simply track anything.",
         github: "https://habi.drdreo.com",
         image: "/habi.png",
         tags: ["angular", "golang", "auth0"],
@@ -74,8 +72,7 @@ export const projects: Project[] = [
     },
     {
         title: "fitzbrothers",
-        description:
-            "The homepage for my friends from the fitzbrothers band.",
+        description: "The homepage for my friends from the fitzbrothers band.",
         url: "https://fitzbrothers.at/",
         github: "https://github.com/drdreo/fitzbrothers",
         image: "/fitz.png",
@@ -83,8 +80,7 @@ export const projects: Project[] = [
     },
     {
         title: "Fretello",
-        description:
-            "The homepage and songs search application for Fretello.",
+        description: "The homepage and songs search application for Fretello.",
         url: "https://fretello.com/",
         image: "/fretello.png",
         tags: ["angular"],
