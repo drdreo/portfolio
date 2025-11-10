@@ -30,6 +30,7 @@ import {
     SiCypress,
     SiAuth0,
     SiOpenid,
+    SiKubernetes,
 } from "react-icons/si";
 
 export type ProficiencyLevel = "expert" | "advanced" | "intermediate" | "beginner";
@@ -80,6 +81,7 @@ export const techStack: TechStack[] = [
     { name: "Cypress", category: "tools", proficiency: "advanced", icon: SiCypress },
     { name: "Auth0", category: "tools", proficiency: "advanced", icon: SiAuth0 },
     { name: "OAuth", category: "tools", proficiency: "advanced", icon: SiOpenid },
+    { name: "Kubernetes", category: "tools", proficiency: "intermediate", icon: SiKubernetes },
 ];
 
 export const categoryColors = {

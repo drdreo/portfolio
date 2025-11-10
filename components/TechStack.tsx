@@ -67,10 +67,9 @@ export const TechStack: FC = () => {
                     }
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className={styles.title}>Technical Expertise</h2>
+                    <h2 className={styles.title}>Tech Stack</h2>
                     <p className={styles.subtitle}>
-                        A comprehensive toolkit for building modern web
-                        applications
+                        Technologies i have used and worked with. Not just read about.
                     </p>
                 </MotionComponent>
 
