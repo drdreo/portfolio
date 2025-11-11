@@ -7,7 +7,7 @@ import {
     categoryLabels,
     proficiencyColors,
     proficiencyLabels,
-} from "../data/techStack";
+} from "../data/tech-stack";
 import styles from "./TechStack.module.scss";
 
 export const TechStack: FC = () => {

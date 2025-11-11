@@ -49,7 +49,7 @@ export const Work: FC = () => {
                 >
                     <h2 className={styles.title}>Featured Projects</h2>
                     <p className={styles.subtitle}>
-                        A selection of projects showcasing full-stack
+                        A selection of hobby and professional projects showcasing full-stack
                         development, real-time applications, and creative
                         problem-solving
                     </p>
