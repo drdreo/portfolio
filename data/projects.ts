@@ -19,7 +19,7 @@ export const projects: Project[] = [
     {
         title: "Poker",
         description:
-            "A simple lobby based Poker game to play with your friends. Emerged due to COVID and the social distancing rules.",
+            "A simple lobby based Poker game to play with your friends.",
         github: "https://github.com/drdreo/poker",
         image: "/poker.png",
         tags: ["angular", "nest.js"],
@@ -36,7 +36,7 @@ export const projects: Project[] = [
     {
         title: "lit-scss-loader",
         description:
-            "A webpack loader plugin for easier SCSS handling for LitElement. Average of 1500 downloads / week",
+            "A webpack loader plugin for easier SCSS handling for LitElement. Averaged at 1500 downloads / week",
         url: "https://www.npmjs.com/package/lit-scss-loader",
         github: "https://github.com/drdreo/lit-scss-loader",
         tags: ["webpack", "LitElement", "SCSS"],
@@ -59,9 +59,9 @@ export const projects: Project[] = [
     {
         title: "Web Component prerendering",
         description:
-            "My research environment to server-side render Web Components.",
+            "My master thesis research to server-side render Web Components with a declarative shadow DOM.",
         url: "https://github.com/drdreo/wc-prerender",
-        tags: [],
+        tags: ['webcomponents', 'ssr' ],
     },
     {
         title: "RisikOnline",
@@ -80,15 +80,15 @@ export const projects: Project[] = [
     },
     {
         title: "Fretello",
-        description: "The homepage and songs search application for Fretello.",
+        description: "As a freelance project, I created the homepage and songs search application for Fretello.",
         url: "https://fretello.com/",
         image: "/fretello.png",
-        tags: ["angular"],
+        tags: ["angular", "ssr"],
     },
     {
         title: "Electro Ultraways",
         description:
-            "A ultraway slot machine. Fun project, created to experiment with React.",
+            "A ultraway slot machine. Fun project, created to experiment with React and odds.",
         url: "https://slot.drdreo.com/",
         github: "https://github.com/drdreo/electro-slot",
         image: "/slot.PNG",

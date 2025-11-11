@@ -45,7 +45,7 @@ export const Work: FC = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : "initial"}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className={styles.title}>Featured Projects</h2>
+                    <h2 className={styles.title}>Projects</h2>
                     <p className={styles.subtitle}>
                         A selection of hobby and professional projects showcasing full-stack
                         development, real-time applications, and creative

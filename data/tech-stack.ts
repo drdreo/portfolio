@@ -37,7 +37,7 @@ import {
     SiWebcomponentsdotorg,
     SiWebpack,
 } from "react-icons/si";
-import { AnalogIcon, PlaywrightIcon } from "@/data/custom-icons.tsx";
+import { AnalogIcon, NgrxIcon, PlaywrightIcon } from "@/data/custom-icons.tsx";
 
 export type ProficiencyLevel = "expert" | "advanced" | "intermediate" | "beginner";
 
@@ -63,6 +63,7 @@ export const techStack: TechStack[] = [
     { name: "TailwindCSS", category: "frontend", proficiency: "advanced", icon: SiTailwindcss },
     { name: "WebComponents", category: "frontend", proficiency: "expert", icon: SiWebcomponentsdotorg },
     { name: "LitElement", category: "frontend", proficiency: "advanced", icon: SiLit },
+    { name: "NgRx", category: "frontend", proficiency: "advanced", icon: NgrxIcon },
 
     // Backend
     { name: "Node.js", category: "backend", proficiency: "expert", icon: SiNodedotjs },
@@ -84,7 +85,7 @@ export const techStack: TechStack[] = [
     { name: "Git", category: "tools", proficiency: "expert", icon: SiGit },
     { name: "Nx", category: "tools", proficiency: "advanced", icon: SiNx },
     { name: "Webpack", category: "tools", proficiency: "advanced", icon: SiWebpack },
-    { name: "Vite", category: "tools", proficiency: "advanced", icon: SiVite },
+    { name: "Vite", category: "tools", proficiency: "beginner", icon: SiVite },
     { name: "Jest", category: "tools", proficiency: "advanced", icon: SiJest },
     { name: "Playwright", category: "tools", proficiency: "intermediate", icon: PlaywrightIcon },
     { name: "Cypress", category: "tools", proficiency: "advanced", icon: SiCypress },
