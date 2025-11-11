@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import { Project } from "../data/projects";
 import styles from "./Card.module.scss";
 
-interface CardProps extends Project {
-    index: number;
-}
+interface CardProps extends Project {}
 
 export const ProjectCard: FC<CardProps> = ({
     title,

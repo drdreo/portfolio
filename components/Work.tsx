@@ -42,10 +42,8 @@ export const Work: FC = () => {
                 <MotionComponent
                     className={styles.header}
                     initial={{ opacity: 0, y: 20 }}
-                    animate={
-                        isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                    }
-                    transition={{ duration: 0.6 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : "initial"}
+                    transition={{ duration: 0.5 }}
                 >
                     <h2 className={styles.title}>Featured Projects</h2>
                     <p className={styles.subtitle}>
@@ -60,12 +58,19 @@ export const Work: FC = () => {
                     variants={containerVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
+                    transition={
+                        isInView
+                            ? {
+                                  delayChildren: 0.2,
+                                  staggerChildren: 0.1,
+                              }
+                            : { staggerChildren: 0 }
+                    }
                 >
-                    {projects.map((project, idx) => (
+                    {projects.map((project) => (
                         <ProjectCard
                             key={project.title}
                             {...project}
-                            index={idx}
                         />
                     ))}
                 </MotionComponent>
