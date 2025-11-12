@@ -61,6 +61,7 @@ export const projects: Project[] = [
         description:
             "My master thesis research to server-side render Web Components with a declarative shadow DOM.",
         url: "https://github.com/drdreo/wc-prerender",
+        github: "https://github.com/drdreo/wc-prerender",
         tags: ['webcomponents', 'ssr' ],
     },
     {
@@ -68,6 +69,7 @@ export const projects: Project[] = [
         description:
             "An HTML multiplayer game based on the ruleset of the board game Risk. Never released sadly.",
         image: "/risk.png",
+        github: "https://github.com/drdreo/risikonline",
         tags: ["angular", "node", "socket.io"],
     },
     {

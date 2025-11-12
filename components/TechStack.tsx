@@ -58,7 +58,7 @@ export const TechStack: FC = () => {
                     transition={{ duration: 0.5 }}
                 >
                     <h2 className={styles.title}>Tech Stack</h2>
-                    <p className={styles.subtitle}>Technologies i have used and worked with. Not just read about.</p>
+                    <p className={styles.subtitle}>Technologies i have worked with. Not just read about.</p>
                 </MotionComponent>
 
                 {categories.map((category, categoryIndex) => (

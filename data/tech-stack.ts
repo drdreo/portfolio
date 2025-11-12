@@ -37,7 +37,7 @@ import {
     SiWebcomponentsdotorg,
     SiWebpack,
 } from "react-icons/si";
-import { AnalogIcon, NgrxIcon, PlaywrightIcon } from "@/data/custom-icons.tsx";
+import { AnalogIcon, AzureIcon, NgrxIcon, PlaywrightIcon } from "@/data/custom-icons.tsx";
 
 export type ProficiencyLevel = "expert" | "advanced" | "intermediate" | "beginner";
 
@@ -94,6 +94,7 @@ export const techStack: TechStack[] = [
     { name: "Clerk", category: "tools", proficiency: "beginner", icon: SiClerk },
     { name: "Docker", category: "tools", proficiency: "advanced", icon: SiDocker },
     { name: "Kubernetes", category: "tools", proficiency: "intermediate", icon: SiKubernetes },
+    { name: "Azure", category: "tools", proficiency: "advanced", icon: AzureIcon },
 ];
 
 export const categoryColors = {
