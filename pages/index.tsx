@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Hero } from "../components/Hero";
 import { TechStack } from "../components/TechStack";
 import { Work } from "../components/Work";
+import { Footer } from "../components/Footer";
 import { FluidCursor } from "../components/fluid-cursor/FluidCursor.tsx";
 
 const Home: FC = () => {
@@ -28,6 +29,7 @@ const Home: FC = () => {
                 <Hero />
                 <TechStack />
                 <Work />
+                <Footer />
             </main>
         </>
     );
