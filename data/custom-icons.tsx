@@ -146,8 +146,8 @@ export const AzureIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
                 gradientTransform="matrix(1 0 0 -1 1075 158)"
                 gradientUnits="userSpaceOnUse"
             >
-                <stop offset="0" stopColor="#114a8b" />
-                <stop offset="1" stopColor="#0669bc" />
+                <stop offset="0" stopColor="currentColor" />
+                <stop offset="1" stopColor="currentColor" />
             </linearGradient>
             <linearGradient
                 id="ac2a6fc2-ca48-4327-9a3c-d4dcc3256e15"
@@ -173,8 +173,8 @@ export const AzureIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
                 gradientTransform="matrix(1 0 0 -1 1075 158)"
                 gradientUnits="userSpaceOnUse"
             >
-                <stop offset="0" stopColor="#3ccbf4" />
-                <stop offset="1" stopColor="#2892df" />
+                <stop offset="0" stopColor="currentColor" />
+                <stop offset="1" stopColor="currentColor" />
             </linearGradient>
         </defs>
         <path
@@ -182,7 +182,7 @@ export const AzureIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
             d="M33.338 6.544h26.038l-27.03 80.087a4.152 4.152 0 0 1-3.933 2.824H8.149a4.145 4.145 0 0 1-3.928-5.47L29.404 9.368a4.152 4.152 0 0 1 3.934-2.825z"
         />
         <path
-            fill="#0078d4"
+            fill="currentColor"
             d="M71.175 60.261h-41.29a1.911 1.911 0 0 0-1.305 3.309l26.532 24.764a4.171 4.171 0 0 0 2.846 1.121h23.38z"
         />
         <path

@@ -1,12 +1,29 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { initFluid } from "@/components/fluid-cursor/fluid-cursor.ts";
 
 export const FluidCursor = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
     useEffect(() => {
+        const mediaQuery = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        );
+        setPrefersReducedMotion(mediaQuery.matches);
+
+        const handleChange = (e: MediaQueryListEvent) => {
+            setPrefersReducedMotion(e.matches);
+        };
+
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, []);
+
+    useEffect(() => {
+        if (prefersReducedMotion) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -23,19 +40,12 @@ export const FluidCursor = () => {
             shading: true, // Enable 3D lighting effects
             transparent: true, // Transparent background
         });
-    });
+    }, [prefersReducedMotion]);
 
-    return (
-        <canvas
-            ref={canvasRef}
-            // style={{
-            //     display: "blocked",
-            //     position: "fixed",
-            //     top: 0,
-            //     width: "100vw",
-            //     height: "100vh",
-            //     // zIndex: "9999"
-            // }}
-        />
-    );
+    // Don't render the canvas if user prefers reduced motion
+    if (prefersReducedMotion) {
+        return null;
+    }
+
+    return <canvas ref={canvasRef} />;
 };

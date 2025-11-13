@@ -11,6 +11,10 @@
     display: flex;
     gap: 1.5rem;
     margin-bottom: 1rem;
+
+    * {
+        cursor: pointer !important;
+    }
 }
 
 .socials a {
@@ -36,4 +40,3 @@
     font-size: 0.9rem;
     opacity: 0.8;
 }
-

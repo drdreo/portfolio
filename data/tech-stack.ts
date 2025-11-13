@@ -4,9 +4,11 @@ import {
     SiAngular,
     SiAuth0,
     SiClerk,
+    SiCloudflare,
     SiCypress,
     SiDeno,
     SiDocker,
+    SiDuckdb,
     SiExpress,
     SiFigma,
     SiGit,
@@ -25,6 +27,7 @@ import {
     SiNx,
     SiPostgresql,
     SiPostman,
+    SiRailway,
     SiReact,
     SiRedis,
     SiSass,
@@ -80,6 +83,7 @@ export const techStack: TechStack[] = [
     { name: "MongoDB", category: "database", proficiency: "advanced", icon: SiMongodb },
     { name: "SQLite", category: "database", proficiency: "advanced", icon: SiSqlite },
     { name: "Redis", category: "database", proficiency: "beginner", icon: SiRedis },
+    { name: "DuckDB", category: "database", proficiency: "beginner", icon: SiDuckdb },
 
     // Tools
     { name: "Git", category: "tools", proficiency: "expert", icon: SiGit },
@@ -94,6 +98,8 @@ export const techStack: TechStack[] = [
     { name: "Clerk", category: "tools", proficiency: "beginner", icon: SiClerk },
     { name: "Docker", category: "tools", proficiency: "advanced", icon: SiDocker },
     { name: "Kubernetes", category: "tools", proficiency: "intermediate", icon: SiKubernetes },
+    { name: "Cloudflare", category: "tools", proficiency: "advanced", icon: SiCloudflare },
+    { name: "Railway", category: "tools", proficiency: "intermediate", icon: SiRailway },
     { name: "Azure", category: "tools", proficiency: "advanced", icon: AzureIcon },
 ];
 

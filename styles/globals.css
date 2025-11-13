@@ -75,6 +75,18 @@ body {
     }
 }
 
+/* Restore default cursor for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        cursor: auto !important;
+    }
+
+    a,
+    button {
+        cursor: pointer !important;
+    }
+}
+
 /* Smooth scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
