@@ -6,8 +6,25 @@ import { initFluid } from "@/components/fluid-cursor/fluid-cursor.ts";
 export const FluidCursor = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+    const [isMobile, setIsMobile] = useState(() => {
+        // Check immediately on mount to prevent flash/initialization
+        if (typeof window === "undefined") return false;
+        const hasTouchScreen = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        const isMobileWidth = window.innerWidth <= 768;
+        return hasTouchScreen || isMobileWidth;
+    });
 
     useEffect(() => {
+        // Detect mobile devices
+        const checkMobile = () => {
+            const hasTouchScreen = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+            const isMobileWidth = window.innerWidth <= 768;
+            setIsMobile(hasTouchScreen || isMobileWidth);
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         setPrefersReducedMotion(mediaQuery.matches);
 
@@ -16,11 +33,14 @@ export const FluidCursor = () => {
         };
 
         mediaQuery.addEventListener("change", handleChange);
-        return () => mediaQuery.removeEventListener("change", handleChange);
+        return () => {
+            mediaQuery.removeEventListener("change", handleChange);
+            window.removeEventListener("resize", checkMobile);
+        };
     }, []);
 
     useEffect(() => {
-        if (prefersReducedMotion) return;
+        if (prefersReducedMotion || isMobile) return;
 
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -38,10 +58,10 @@ export const FluidCursor = () => {
             shading: true, // Enable 3D lighting effects
             transparent: true, // Transparent background
         });
-    }, [prefersReducedMotion]);
+    }, [prefersReducedMotion, isMobile]);
 
-    // Don't render the canvas if user prefers reduced motion
-    if (prefersReducedMotion) {
+    // Don't render the canvas if user prefers reduced motion or is on mobile
+    if (prefersReducedMotion || isMobile) {
         return null;
     }
 

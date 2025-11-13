@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap");
 @import "tailwindcss";
 
-@theme {
-    --background-image-gradient-conic: conic-gradient(var(--conic-position), var(--tw-gradient-stops));
-}
-
 :root {
     --bg-primary: #0f0f23;
     --bg-secondary: #1a1a2e;
