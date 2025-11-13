@@ -94,14 +94,14 @@ export const projects: Project[] = [
         description: "TypeScript web remake of the classic Java RoboCode robot battle game.",
         url: "https://github.com/drdreo/robocode",
         github: "https://github.com/drdreo/robocode",
-        tags: ["Go"],
+        tags: ["Angular", "NestJS"],
     },
     {
         title: "RisikOnline",
         description: "Unreleased web multiplayer adaptation of the Risk board game.",
         image: "/risk.png",
         github: "https://github.com/drdreo/risikonline",
-        tags: ["Angular", "Node.js", "Socket.IO"],
+        tags: ["Angular", "NestJS", "Socket.IO"],
     },
     {
         title: "fitzbrothers",
