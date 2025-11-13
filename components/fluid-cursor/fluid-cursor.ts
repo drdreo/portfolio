@@ -1,12 +1,4 @@
-import {
-    DoubleFBO,
-    FBO,
-    GL,
-    GLExtInfo,
-    GLFormat,
-    ISmokeyFluidConfig,
-    Uniforms,
-} from "./types";
+import { DoubleFBO, FBO, GL, GLExtInfo, GLFormat, ISmokeyFluidConfig, Uniforms } from "./types";
 
 const defaultConfig = {
     simResolution: 128,
@@ -30,9 +22,7 @@ const defaultConfig = {
  * Initializes and starts the fluid simulation
  * @param incomingConfig - Partial configuration object to override default settings
  */
-export const initFluid = (
-    incomingConfig: Partial<ISmokeyFluidConfig> & { canvas: HTMLCanvasElement },
-) => {
+export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas: HTMLCanvasElement }) => {
     // Merge incoming config with defaults
     const config: ISmokeyFluidConfig = { ...defaultConfig, ...incomingConfig };
 
@@ -95,24 +85,15 @@ export const initFluid = (
         };
 
         // Try WebGL2 first for better performance and features
-        let gl = canvas.getContext(
-            "webgl2",
-            params,
-        ) as WebGL2RenderingContext | null;
+        let gl = canvas.getContext("webgl2", params) as WebGL2RenderingContext | null;
 
         const isWebGL2 = !!gl;
 
         // Fallback to WebGL1 if WebGL2 not available
         if (!isWebGL2) {
             gl =
-                (canvas.getContext(
-                    "webgl",
-                    params,
-                ) as WebGL2RenderingContext | null) ||
-                (canvas.getContext(
-                    "experimental-webgl",
-                    params,
-                ) as WebGL2RenderingContext | null);
+                (canvas.getContext("webgl", params) as WebGL2RenderingContext | null) ||
+                (canvas.getContext("experimental-webgl", params) as WebGL2RenderingContext | null);
         }
 
         // Throw error if WebGL not supported
@@ -130,29 +111,20 @@ export const initFluid = (
             // Enable color buffer float for high precision rendering
             gl2.getExtension("EXT_color_buffer_float");
             // Check if linear filtering is supported for float textures
-            supportLinearFiltering = !!gl2.getExtension(
-                "OES_texture_float_linear",
-            );
+            supportLinearFiltering = !!gl2.getExtension("OES_texture_float_linear");
             // Use native HALF_FLOAT type in WebGL2
             halfFloatTexType = gl2.HALF_FLOAT;
         } else {
             const gl1 = gl as WebGLRenderingContext;
             // Get half float extension for WebGL1
-            halfFloat = gl1.getExtension(
-                "OES_texture_half_float",
-            ) as OES_texture_half_float | null;
+            halfFloat = gl1.getExtension("OES_texture_half_float") as OES_texture_half_float | null;
             // Check linear filtering support
-            supportLinearFiltering = !!gl1.getExtension(
-                "OES_texture_half_float_linear",
-            );
+            supportLinearFiltering = !!gl1.getExtension("OES_texture_half_float_linear");
             // Throw error if half float not supported
             if (!halfFloat) {
-                throw new Error(
-                    "OES_texture_half_float not supported on WebGL1",
-                );
+                throw new Error("OES_texture_half_float not supported on WebGL1");
             }
-            halfFloatTexType = (halfFloat as OES_texture_half_float)
-                .HALF_FLOAT_OES;
+            halfFloatTexType = (halfFloat as OES_texture_half_float).HALF_FLOAT_OES;
         }
 
         // Set clear color to black
@@ -166,45 +138,15 @@ export const initFluid = (
         if (isWebGL2) {
             const gl2 = gl as WebGL2RenderingContext;
             // Try to get supported formats for different channel counts
-            formatRGBA = getSupportedFormat(
-                gl2,
-                gl2.RGBA16F,
-                gl2.RGBA,
-                halfFloatTexType,
-            );
-            formatRG = getSupportedFormat(
-                gl2,
-                gl2.RG16F,
-                gl2.RG,
-                halfFloatTexType,
-            );
-            formatR = getSupportedFormat(
-                gl2,
-                gl2.R16F,
-                gl2.RED,
-                halfFloatTexType,
-            );
+            formatRGBA = getSupportedFormat(gl2, gl2.RGBA16F, gl2.RGBA, halfFloatTexType);
+            formatRG = getSupportedFormat(gl2, gl2.RG16F, gl2.RG, halfFloatTexType);
+            formatR = getSupportedFormat(gl2, gl2.R16F, gl2.RED, halfFloatTexType);
         } else {
             // WebGL1: fall back to RGBA for all formats due to limited support
             const gl1 = gl as WebGLRenderingContext;
-            formatRGBA = getSupportedFormat(
-                gl1,
-                gl1.RGBA,
-                gl1.RGBA,
-                halfFloatTexType,
-            );
-            formatRG = getSupportedFormat(
-                gl1,
-                gl1.RGBA,
-                gl1.RGBA,
-                halfFloatTexType,
-            );
-            formatR = getSupportedFormat(
-                gl1,
-                gl1.RGBA,
-                gl1.RGBA,
-                halfFloatTexType,
-            );
+            formatRGBA = getSupportedFormat(gl1, gl1.RGBA, gl1.RGBA, halfFloatTexType);
+            formatRG = getSupportedFormat(gl1, gl1.RGBA, gl1.RGBA, halfFloatTexType);
+            formatR = getSupportedFormat(gl1, gl1.RGBA, gl1.RGBA, halfFloatTexType);
         }
 
         return {
@@ -228,12 +170,7 @@ export const initFluid = (
      * @param type - Texture data type
      * @returns Supported format or null if not supported
      */
-    function getSupportedFormat(
-        gl: GL,
-        internalFormat: number,
-        format: number,
-        type: number,
-    ): GLFormat | null {
+    function getSupportedFormat(gl: GL, internalFormat: number, format: number, type: number): GLFormat | null {
         // Check if the preferred format is supported
         if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
             // Fallback to higher channel formats if available (WebGL2 only)
@@ -245,12 +182,7 @@ export const initFluid = (
                         return getSupportedFormat(gl2, gl2.RG16F, gl2.RG, type);
                     case (gl2 as WebGL2RenderingContext).RG16F:
                         // Fallback from RG16F to RGBA16F
-                        return getSupportedFormat(
-                            gl2,
-                            gl2.RGBA16F,
-                            gl2.RGBA,
-                            type,
-                        );
+                        return getSupportedFormat(gl2, gl2.RGBA16F, gl2.RGBA, type);
                     default:
                         return null;
                 }
@@ -268,12 +200,7 @@ export const initFluid = (
      * @param type - Texture data type
      * @returns Boolean indicating format support
      */
-    function supportRenderTextureFormat(
-        gl: GL,
-        internalFormat: number,
-        format: number,
-        type: number,
-    ) {
+    function supportRenderTextureFormat(gl: GL, internalFormat: number, format: number, type: number) {
         // Create test texture
         const texture = gl.createTexture();
         if (!texture) return false;
@@ -285,29 +212,13 @@ export const initFluid = (
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
         // Allocate texture storage
-        gl.texImage2D(
-            gl.TEXTURE_2D,
-            0,
-            internalFormat,
-            4,
-            4,
-            0,
-            format,
-            type,
-            null,
-        );
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
 
         // Create framebuffer and attach texture
         const fbo = gl.createFramebuffer();
         if (!fbo) return false;
         gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-        gl.framebufferTexture2D(
-            gl.FRAMEBUFFER,
-            gl.COLOR_ATTACHMENT0,
-            gl.TEXTURE_2D,
-            texture,
-            0,
-        );
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
 
         // Check framebuffer completeness
         const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
@@ -345,8 +256,7 @@ export const initFluid = (
         setKeywords(keywords: string[]) {
             // Generate hash from keywords for program caching
             let hash = 0;
-            for (let i = 0; i < keywords.length; i++)
-                hash += hashCode(keywords[i]);
+            for (let i = 0; i < keywords.length; i++) hash += hashCode(keywords[i]);
 
             // Use cached program or create new one
             let program = this.programs[hash];
@@ -400,11 +310,7 @@ export const initFluid = (
     /**
      * Creates a WebGL program from vertex and fragment shaders
      */
-    function createProgram(
-        gl: GL,
-        vertexShader: WebGLShader,
-        fragmentShader: WebGLShader,
-    ) {
+    function createProgram(gl: GL, vertexShader: WebGLShader, fragmentShader: WebGLShader) {
         const program = gl.createProgram()!;
         // Bind attribute location 0 to "aPosition" for full-screen quad
         gl.attachShader(program, vertexShader);
@@ -425,10 +331,7 @@ export const initFluid = (
      */
     function getUniforms(gl: GL, program: WebGLProgram) {
         const uniforms: Uniforms = {};
-        const uniformCount: number = gl.getProgramParameter(
-            program,
-            gl.ACTIVE_UNIFORMS,
-        );
+        const uniformCount: number = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
 
         // Get location for each uniform
         for (let i = 0; i < uniformCount; i++) {
@@ -824,20 +727,12 @@ export const initFluid = (
         // Create vertex buffer for full-screen quad
         const vbo = gl.createBuffer()!;
         gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
-        gl.bufferData(
-            gl.ARRAY_BUFFER,
-            new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]),
-            gl.STATIC_DRAW,
-        );
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
 
         // Create element buffer for triangle indices
         const ebo = gl.createBuffer()!;
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ebo);
-        gl.bufferData(
-            gl.ELEMENT_ARRAY_BUFFER,
-            new Uint16Array([0, 1, 2, 0, 2, 3]),
-            gl.STATIC_DRAW,
-        );
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
 
         // Set up vertex attribute
         gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
@@ -851,12 +746,7 @@ export const initFluid = (
         return (target: FBO | null, clear = false) => {
             if (target == null) {
                 // Render to screen
-                gl.viewport(
-                    0,
-                    0,
-                    gl.drawingBufferWidth,
-                    gl.drawingBufferHeight,
-                );
+                gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
                 gl.bindFramebuffer(gl.FRAMEBUFFER, null);
             } else {
                 // Render to framebuffer
@@ -891,10 +781,7 @@ export const initFluid = (
     const curlProgram = new Program(baseVertexShader, curlShader);
     const vorticityProgram = new Program(baseVertexShader, vorticityShader);
     const pressureProgram = new Program(baseVertexShader, pressureShader);
-    const gradienSubtractProgram = new Program(
-        baseVertexShader,
-        gradientSubtractShader,
-    );
+    const gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
 
     // Material for final display with configurable keywords
     const displayMaterial = new Material(baseVertexShader, displayShaderSource);
@@ -916,14 +803,7 @@ export const initFluid = (
 
         // Initialize or resize dye framebuffers
         if (dye == null)
-            dye = createDoubleFBO(
-                dyeRes.width,
-                dyeRes.height,
-                rgba.internalFormat,
-                rgba.format,
-                texType,
-                filtering,
-            );
+            dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
         else
             dye = resizeDoubleFBO(
                 dye,
@@ -937,14 +817,7 @@ export const initFluid = (
 
         // Initialize or resize velocity framebuffers
         if (velocity == null)
-            velocity = createDoubleFBO(
-                simRes.width,
-                simRes.height,
-                rg.internalFormat,
-                rg.format,
-                texType,
-                filtering,
-            );
+            velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
         else
             velocity = resizeDoubleFBO(
                 velocity,
@@ -957,43 +830,15 @@ export const initFluid = (
             );
 
         // Create single FBOs for intermediate calculations
-        divergence = createFBO(
-            simRes.width,
-            simRes.height,
-            r.internalFormat,
-            r.format,
-            texType,
-            gl.NEAREST,
-        );
-        curl = createFBO(
-            simRes.width,
-            simRes.height,
-            r.internalFormat,
-            r.format,
-            texType,
-            gl.NEAREST,
-        );
-        pressure = createDoubleFBO(
-            simRes.width,
-            simRes.height,
-            r.internalFormat,
-            r.format,
-            texType,
-            gl.NEAREST,
-        );
+        divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
     }
 
     /**
      * Creates a single framebuffer object
      */
-    function createFBO(
-        w: number,
-        h: number,
-        internalFormat: number,
-        format: number,
-        type: number,
-        param: number,
-    ): FBO {
+    function createFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO {
         gl.activeTexture(gl.TEXTURE0);
         const texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -1001,27 +846,11 @@ export const initFluid = (
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texImage2D(
-            gl.TEXTURE_2D,
-            0,
-            internalFormat,
-            w,
-            h,
-            0,
-            format,
-            type,
-            null,
-        );
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
 
         const fbo = gl.createFramebuffer()!;
         gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-        gl.framebufferTexture2D(
-            gl.FRAMEBUFFER,
-            gl.COLOR_ATTACHMENT0,
-            gl.TEXTURE_2D,
-            texture,
-            0,
-        );
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
         gl.viewport(0, 0, w, h);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -1114,15 +943,7 @@ export const initFluid = (
         param: number,
     ): DoubleFBO {
         if (target.width === w && target.height === h) return target;
-        target.read = resizeFBO(
-            target.read,
-            w,
-            h,
-            internalFormat,
-            format,
-            type,
-            param,
-        );
+        target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
         target.write = createFBO(w, h, internalFormat, format, type, param);
         target.width = w;
         target.height = h;
@@ -1220,28 +1041,14 @@ export const initFluid = (
 
         // Curl calculation
         curlProgram.bind();
-        gl.uniform2f(
-            curlProgram.uniforms["texelSize"],
-            velocity.texelSizeX,
-            velocity.texelSizeY,
-        );
-        gl.uniform1i(
-            curlProgram.uniforms["uVelocity"],
-            velocity.read.attach(0),
-        );
+        gl.uniform2f(curlProgram.uniforms["texelSize"], velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(curlProgram.uniforms["uVelocity"], velocity.read.attach(0));
         blit(curl);
 
         // Vorticity confinement
         vorticityProgram.bind();
-        gl.uniform2f(
-            vorticityProgram.uniforms["texelSize"],
-            velocity.texelSizeX,
-            velocity.texelSizeY,
-        );
-        gl.uniform1i(
-            vorticityProgram.uniforms["uVelocity"],
-            velocity.read.attach(0),
-        );
+        gl.uniform2f(vorticityProgram.uniforms["texelSize"], velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(vorticityProgram.uniforms["uVelocity"], velocity.read.attach(0));
         gl.uniform1i(vorticityProgram.uniforms["uCurl"], curl.attach(1));
         gl.uniform1f(vorticityProgram.uniforms["curl"], config.curl);
         gl.uniform1f(vorticityProgram.uniforms["dt"], dt);
@@ -1250,107 +1057,56 @@ export const initFluid = (
 
         // Divergence calculation
         divergenceProgram.bind();
-        gl.uniform2f(
-            divergenceProgram.uniforms["texelSize"],
-            velocity.texelSizeX,
-            velocity.texelSizeY,
-        );
-        gl.uniform1i(
-            divergenceProgram.uniforms["uVelocity"],
-            velocity.read.attach(0),
-        );
+        gl.uniform2f(divergenceProgram.uniforms["texelSize"], velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(divergenceProgram.uniforms["uVelocity"], velocity.read.attach(0));
         blit(divergence);
 
         // Clear pressure
         clearProgram.bind();
-        gl.uniform1i(
-            clearProgram.uniforms["uTexture"],
-            pressure.read.attach(0),
-        );
+        gl.uniform1i(clearProgram.uniforms["uTexture"], pressure.read.attach(0));
         gl.uniform1f(clearProgram.uniforms["value"], config.pressure);
         blit(pressure.write);
         pressure.swap();
 
         // Pressure solve (Jacobi iterations)
         pressureProgram.bind();
-        gl.uniform2f(
-            pressureProgram.uniforms["texelSize"],
-            velocity.texelSizeX,
-            velocity.texelSizeY,
-        );
-        gl.uniform1i(
-            pressureProgram.uniforms["uDivergence"],
-            divergence.attach(0),
-        );
+        gl.uniform2f(pressureProgram.uniforms["texelSize"], velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(pressureProgram.uniforms["uDivergence"], divergence.attach(0));
         for (let i = 0; i < config.pressureIteration; i++) {
-            gl.uniform1i(
-                pressureProgram.uniforms["uPressure"],
-                pressure.read.attach(1),
-            );
+            gl.uniform1i(pressureProgram.uniforms["uPressure"], pressure.read.attach(1));
             blit(pressure.write);
             pressure.swap();
         }
 
         // Gradient subtraction to make velocity divergence-free
         gradienSubtractProgram.bind();
-        gl.uniform2f(
-            gradienSubtractProgram.uniforms["texelSize"],
-            velocity.texelSizeX,
-            velocity.texelSizeY,
-        );
-        gl.uniform1i(
-            gradienSubtractProgram.uniforms["uPressure"],
-            pressure.read.attach(0),
-        );
-        gl.uniform1i(
-            gradienSubtractProgram.uniforms["uVelocity"],
-            velocity.read.attach(1),
-        );
+        gl.uniform2f(gradienSubtractProgram.uniforms["texelSize"], velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(gradienSubtractProgram.uniforms["uPressure"], pressure.read.attach(0));
+        gl.uniform1i(gradienSubtractProgram.uniforms["uVelocity"], velocity.read.attach(1));
         blit(velocity.write);
         velocity.swap();
 
         // Advect velocity
         advectionProgram.bind();
-        gl.uniform2f(
-            advectionProgram.uniforms["texelSize"],
-            velocity.texelSizeX,
-            velocity.texelSizeY,
-        );
+        gl.uniform2f(advectionProgram.uniforms["texelSize"], velocity.texelSizeX, velocity.texelSizeY);
         if (!ext.supportLinearFiltering) {
-            gl.uniform2f(
-                advectionProgram.uniforms["dyeTexelSize"],
-                velocity.texelSizeX,
-                velocity.texelSizeY,
-            );
+            gl.uniform2f(advectionProgram.uniforms["dyeTexelSize"], velocity.texelSizeX, velocity.texelSizeY);
         }
         const velocityId = velocity.read.attach(0);
         gl.uniform1i(advectionProgram.uniforms["uVelocity"], velocityId);
         gl.uniform1i(advectionProgram.uniforms["uSource"], velocityId);
         gl.uniform1f(advectionProgram.uniforms["dt"], dt);
-        gl.uniform1f(
-            advectionProgram.uniforms["dissipation"],
-            config.velocityDissipation,
-        );
+        gl.uniform1f(advectionProgram.uniforms["dissipation"], config.velocityDissipation);
         blit(velocity.write);
         velocity.swap();
 
         // Advect dye
         if (!ext.supportLinearFiltering) {
-            gl.uniform2f(
-                advectionProgram.uniforms["dyeTexelSize"],
-                dye.texelSizeX,
-                dye.texelSizeY,
-            );
+            gl.uniform2f(advectionProgram.uniforms["dyeTexelSize"], dye.texelSizeX, dye.texelSizeY);
         }
-        gl.uniform1i(
-            advectionProgram.uniforms["uVelocity"],
-            velocity.read.attach(0),
-        );
+        gl.uniform1i(advectionProgram.uniforms["uVelocity"], velocity.read.attach(0));
         gl.uniform1i(advectionProgram.uniforms["uSource"], dye.read.attach(1));
-        gl.uniform1f(
-            advectionProgram.uniforms["dissipation"],
-            config.densityDissipation,
-        );
+        gl.uniform1f(advectionProgram.uniforms["dissipation"], config.densityDissipation);
         blit(dye.write);
         dye.swap();
     }
@@ -1373,11 +1129,7 @@ export const initFluid = (
 
         displayMaterial.bind();
         if (config.shading) {
-            gl.uniform2f(
-                displayMaterial.uniforms["texelSize"],
-                1.0 / width,
-                1.0 / height,
-            );
+            gl.uniform2f(displayMaterial.uniforms["texelSize"], 1.0 / width, 1.0 / height);
         }
         gl.uniform1i(displayMaterial.uniforms["uTexture"], dye.read.attach(0));
         blit(target);
@@ -1409,26 +1161,14 @@ export const initFluid = (
     /**
      * Applies a fluid splat at specified coordinates
      */
-    function splat(
-        x: number,
-        y: number,
-        dx: number,
-        dy: number,
-        color: { r: number; g: number; b: number },
-    ) {
+    function splat(x: number, y: number, dx: number, dy: number, color: { r: number; g: number; b: number }) {
         // Splat velocity
         splatProgram.bind();
         gl.uniform1i(splatProgram.uniforms["uTarget"], velocity.read.attach(0));
-        gl.uniform1f(
-            splatProgram.uniforms["aspectRatio"],
-            canvas!.width / canvas!.height,
-        );
+        gl.uniform1f(splatProgram.uniforms["aspectRatio"], canvas!.width / canvas!.height);
         gl.uniform2f(splatProgram.uniforms["point"], x, y);
         gl.uniform3f(splatProgram.uniforms["color"], dx, dy, 0.0);
-        gl.uniform1f(
-            splatProgram.uniforms["radius"],
-            correctRadius(config.splatRadius / 100.0),
-        );
+        gl.uniform1f(splatProgram.uniforms["radius"], correctRadius(config.splatRadius / 100.0));
         blit(velocity.write);
         velocity.swap();
 
@@ -1507,12 +1247,7 @@ export const initFluid = (
     /**
      * Updates pointer data when pressed down
      */
-    function updatePointerDownData(
-        pointer: PointerPrototype,
-        id: number,
-        posX: number,
-        posY: number,
-    ) {
+    function updatePointerDownData(pointer: PointerPrototype, id: number, posX: number, posY: number) {
         pointer.id = id;
         pointer.down = true;
         pointer.moved = false;
@@ -1538,14 +1273,9 @@ export const initFluid = (
         pointer.prevTexcoordY = pointer.texcoordY;
         pointer.texcoordX = posX / canvas!.width;
         pointer.texcoordY = 1.0 - posY / canvas!.height;
-        pointer.deltaX = correctDeltaX(
-            pointer.texcoordX - pointer.prevTexcoordX,
-        );
-        pointer.deltaY = correctDeltaY(
-            pointer.texcoordY - pointer.prevTexcoordY,
-        );
-        pointer.moved =
-            Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+        pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+        pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+        pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
         pointer.color = color;
     }
 
@@ -1588,11 +1318,7 @@ export const initFluid = (
     /**
      * Converts RGB object to tuple
      */
-    function rgbToTuple(c: {
-        r: number;
-        g: number;
-        b: number;
-    }): [number, number, number] {
+    function rgbToTuple(c: { r: number; g: number; b: number }): [number, number, number] {
         return [c.r, c.g, c.b];
     }
 
@@ -1671,8 +1397,7 @@ export const initFluid = (
         const min = Math.round(resolution);
         const max = Math.round(resolution * aspectRatio);
 
-        if (gl.drawingBufferWidth > gl.drawingBufferHeight)
-            return { width: max, height: min };
+        if (gl.drawingBufferWidth > gl.drawingBufferHeight) return { width: max, height: min };
         else return { width: min, height: max };
     }
 

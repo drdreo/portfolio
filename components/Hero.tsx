@@ -7,9 +7,7 @@ export const Hero: FC = () => {
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia(
-            "(prefers-reduced-motion: reduce)",
-        );
+        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         setPrefersReducedMotion(mediaQuery.matches);
 
         const handleChange = (e: MediaQueryListEvent) => {
@@ -47,45 +45,25 @@ export const Hero: FC = () => {
 
     return (
         <section className={styles.hero}>
-            <MotionComponent
-                className={styles.content}
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                <MotionComponent
-                    variants={itemVariants}
-                    className={styles.greeting}
-                >
+            <MotionComponent className={styles.content} variants={containerVariants} initial="hidden" animate="visible">
+                <MotionComponent variants={itemVariants} className={styles.greeting}>
                     Hello, I'm
                 </MotionComponent>
 
-                <MotionComponent
-                    variants={itemVariants}
-                    className={styles.name}
-                >
+                <MotionComponent variants={itemVariants} className={styles.name}>
                     <span className={styles.nameGradient}>Andreas Hahn</span>
                 </MotionComponent>
 
-                <MotionComponent
-                    variants={itemVariants}
-                    className={styles.title}
-                >
+                <MotionComponent variants={itemVariants} className={styles.title}>
                     Full-Stack Engineer
                 </MotionComponent>
 
-                <MotionComponent
-                    variants={itemVariants}
-                    className={styles.tagline}
-                >
-                    Crafting high-performance web experiences with modern
-                    technologies and meticulous attention to detail.
+                <MotionComponent variants={itemVariants} className={styles.tagline}>
+                    Crafting high-performance web experiences with modern technologies and meticulous attention to
+                    detail.
                 </MotionComponent>
 
-                <MotionComponent
-                    variants={itemVariants}
-                    className={styles.scrollIndicator}
-                >
+                <MotionComponent variants={itemVariants} className={styles.scrollIndicator}>
                     <motion.div
                         className={styles.scrollArrow}
                         animate={

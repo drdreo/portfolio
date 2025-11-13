@@ -32,8 +32,7 @@ export const projects: Project[] = [
     },
     {
         title: "lit-scss-loader",
-        description:
-            "Webpack loader simplifying SCSS integration in LitElement (≈1.5k weekly downloads)",
+        description: "Webpack loader simplifying SCSS integration in LitElement (≈1.5k weekly downloads)",
         url: "https://www.npmjs.com/package/lit-scss-loader",
         github: "https://github.com/drdreo/lit-scss-loader",
         tags: ["Webpack", "LitElement", "SCSS"],

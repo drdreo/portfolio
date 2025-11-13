@@ -16,10 +16,7 @@ const Home: FC = () => {
                     name="description"
                     content="Full-stack engineer crafting high-performance web experiences with modern technologies and meticulous attention to detail."
                 />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="theme-color" content="#0f0f23" />
             </Head>
 
