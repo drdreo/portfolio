@@ -5,17 +5,13 @@ import { initFluid } from "@/components/fluid-cursor/fluid-cursor.ts";
 
 export const FluidCursor = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const [mounted, setMounted] = useState(false);
     const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-    const [isMobile, setIsMobile] = useState(() => {
-        // Check immediately on mount to prevent flash/initialization
-        if (typeof window === "undefined") return false;
-        const hasTouchScreen = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-        const isMobileWidth = window.innerWidth <= 768;
-        return hasTouchScreen || isMobileWidth;
-    });
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        // Detect mobile devices
+        setMounted(true);
+
         const checkMobile = () => {
             const hasTouchScreen = "ontouchstart" in window || navigator.maxTouchPoints > 0;
             const isMobileWidth = window.innerWidth <= 768;
@@ -33,14 +29,15 @@ export const FluidCursor = () => {
         };
 
         mediaQuery.addEventListener("change", handleChange);
+
         return () => {
-            mediaQuery.removeEventListener("change", handleChange);
             window.removeEventListener("resize", checkMobile);
+            mediaQuery.removeEventListener("change", handleChange);
         };
     }, []);
 
     useEffect(() => {
-        if (prefersReducedMotion || isMobile) return;
+        if (!mounted || prefersReducedMotion || isMobile) return;
 
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -58,10 +55,9 @@ export const FluidCursor = () => {
             shading: true, // Enable 3D lighting effects
             transparent: true // Transparent background
         });
-    }, [prefersReducedMotion, isMobile]);
+    }, [mounted, prefersReducedMotion, isMobile]);
 
-    // Don't render the canvas if user prefers reduced motion or is on mobile
-    if (prefersReducedMotion || isMobile) {
+    if (!mounted || prefersReducedMotion || isMobile) {
         return null;
     }
 
