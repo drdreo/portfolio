@@ -6,6 +6,7 @@
 .pnp.js
 .idea
 .open-next
+.wrangler
 
 # testing
 /coverage
