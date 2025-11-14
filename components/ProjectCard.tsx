@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Project } from "../data/projects";
@@ -58,7 +59,15 @@ export const ProjectCard: FC<CardProps> = ({ title, description, url, image, git
         >
             {image && (
                 <div className={styles.imageWrapper}>
-                    <img className={styles.image} src={image} alt={`${title} project screenshot`} loading="lazy" />
+                    <Image
+                        className={styles.image}
+                        src={image}
+                        alt={`${title} project screenshot`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        style={{ objectFit: "cover" }}
+                        priority={false}
+                    />
                     <div className={styles.imageOverlay} />
                 </div>
             )}
