@@ -65,7 +65,7 @@ export const ProjectCard: FC<CardProps> = ({ title, description, url, image, git
                         alt={`${title} project screenshot`}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        style={{ objectFit: "cover" }}
+                        placeholder="blur"
                         priority={false}
                     />
                     <div className={styles.imageOverlay} />
