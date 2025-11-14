@@ -56,7 +56,7 @@ export const FluidCursor = () => {
             splatRadius: 0.25, // Size of cursor splats
             splatForce: 6000, // Force of cursor movements
             shading: true, // Enable 3D lighting effects
-            transparent: true, // Transparent background
+            transparent: true // Transparent background
         });
     }, [prefersReducedMotion, isMobile]);
 

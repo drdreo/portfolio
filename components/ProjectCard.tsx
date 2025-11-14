@@ -28,9 +28,9 @@ export const ProjectCard: FC<CardProps> = ({ title, description, url, image, git
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut" as const,
-            },
-        },
+                ease: "easeOut" as const
+            }
+        }
     };
 
     const MotionComponent = prefersReducedMotion ? "div" : motion.div;
@@ -50,7 +50,7 @@ export const ProjectCard: FC<CardProps> = ({ title, description, url, image, git
                     ? {}
                     : {
                           y: -8,
-                          transition: { duration: 0.3 },
+                          transition: { duration: 0.3 }
                       }
             }
             onClick={handleClick}

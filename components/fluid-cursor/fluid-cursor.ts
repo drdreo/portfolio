@@ -15,7 +15,7 @@ const defaultConfig = {
     colorUpdateSpeed: 10,
     paused: false,
     backColor: { r: 0, g: 0, b: 0 },
-    transparent: true,
+    transparent: true
 };
 
 /**
@@ -81,7 +81,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
             depth: false, // Disable depth buffer (2D simulation)
             stencil: false, // Disable stencil buffer
             antialias: false, // Disable antialiasing for performance
-            preserveDrawingBuffer: false, // Don't preserve drawing buffer
+            preserveDrawingBuffer: false // Don't preserve drawing buffer
         };
 
         // Try WebGL2 first for better performance and features
@@ -157,8 +157,8 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 formatR,
                 halfFloatTexType,
                 supportLinearFiltering,
-                isWebGL2,
-            } as GLExtInfo,
+                isWebGL2
+            } as GLExtInfo
         };
     }
 
@@ -266,7 +266,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 const fragmentShader = compileShader(
                     gl,
                     gl.FRAGMENT_SHADER,
-                    addKeywords(this.fragmentShaderSource, keywords),
+                    addKeywords(this.fragmentShaderSource, keywords)
                 );
                 // Create and cache program
                 program = createProgram(gl, this.vertexShader, fragmentShader);
@@ -396,7 +396,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           vB = vUv - vec2(0.0, texelSize.y);
           gl_Position = vec4(aPosition, 0.0, 1.0);
       }
-    `,
+    `
     );
 
     // Simple texture copy shader
@@ -413,7 +413,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
       void main () {
           gl_FragColor = texture2D(uTexture, vUv);
       }
-    `,
+    `
     );
 
     // Shader for clearing textures with a value
@@ -431,7 +431,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
       void main () {
           gl_FragColor = value * texture2D(uTexture, vUv);
       }
-    `,
+    `
     );
 
     // Main display shader with optional shading
@@ -497,7 +497,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           vec3 base = texture2D(uTarget, vUv).xyz;
           gl_FragColor = vec4(base + splat, 1.0);
       }
-    `,
+    `
     );
 
     // Advection shader for moving fluid through velocity field
@@ -547,8 +547,8 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           gl_FragColor = result / decay;
       }
     `,
-            ext.supportLinearFiltering ? null : ["MANUAL_FILTERING"],
-        ),
+            ext.supportLinearFiltering ? null : ["MANUAL_FILTERING"]
+        )
     );
 
     // Divergence shader for calculating velocity field divergence
@@ -585,7 +585,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           float div = 0.5 * (R - L + T - B);
           gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
       }
-    `,
+    `
     );
 
     // Curl shader for calculating vorticity (rotation) in velocity field
@@ -612,7 +612,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           float vorticity = R - L - T + B;
           gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
       }
-    `,
+    `
     );
 
     // Vorticity shader for adding swirling motion to the fluid
@@ -653,7 +653,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           velocity = min(max(velocity, -1000.0), 1000.0); // Clamp to prevent explosion
           gl_FragColor = vec4(velocity, 0.0, 1.0);
       }
-    `,
+    `
     );
 
     // Pressure solver shader (Jacobi iteration)
@@ -685,7 +685,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           float pressure = (L + R + B + T - divergence) * 0.25;
           gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
       }
-    `,
+    `
     );
 
     // Gradient subtract shader for making velocity field divergence-free
@@ -716,7 +716,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
           velocity.xy -= vec2(R - L, T - B);
           gl_FragColor = vec4(velocity, 0.0, 1.0);
       }
-    `,
+    `
     );
 
     /**
@@ -812,7 +812,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 rgba.internalFormat,
                 rgba.format,
                 texType,
-                filtering,
+                filtering
             );
 
         // Initialize or resize velocity framebuffers
@@ -826,7 +826,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 rg.internalFormat,
                 rg.format,
                 texType,
-                filtering,
+                filtering
             );
 
         // Create single FBOs for intermediate calculations
@@ -868,7 +868,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 gl.activeTexture(gl.TEXTURE0 + id);
                 gl.bindTexture(gl.TEXTURE_2D, texture);
                 return id;
-            },
+            }
         };
     }
 
@@ -881,7 +881,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
         internalFormat: number,
         format: number,
         type: number,
-        param: number,
+        param: number
     ): DoubleFBO {
         let fbo1 = createFBO(w, h, internalFormat, format, type, param);
         let fbo2 = createFBO(w, h, internalFormat, format, type, param);
@@ -907,7 +907,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 const temp = fbo1;
                 fbo1 = fbo2;
                 fbo2 = temp;
-            },
+            }
         };
     }
 
@@ -921,7 +921,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
         internalFormat: number,
         format: number,
         type: number,
-        param: number,
+        param: number
     ): FBO {
         const newFBO = createFBO(w, h, internalFormat, format, type, param);
         copyProgram.bind();
@@ -940,7 +940,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
         internalFormat: number,
         format: number,
         type: number,
-        param: number,
+        param: number
     ): DoubleFBO {
         if (target.width === w && target.height === h) return target;
         target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
@@ -1233,7 +1233,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
                 updatePointerMoveData(pointer, posX, posY, pointer.color);
             }
         },
-        { passive: false },
+        { passive: false }
     );
 
     window.addEventListener("touchend", (e) => {
@@ -1267,7 +1267,7 @@ export const initFluid = (incomingConfig: Partial<ISmokeyFluidConfig> & { canvas
         pointer: PointerPrototype,
         posX: number,
         posY: number,
-        color: [number, number, number],
+        color: [number, number, number]
     ) {
         pointer.prevTexcoordX = pointer.texcoordX;
         pointer.prevTexcoordY = pointer.texcoordY;

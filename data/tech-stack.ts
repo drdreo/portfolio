@@ -41,7 +41,7 @@ import {
     SiVite,
     SiVuedotjs,
     SiWebcomponentsdotorg,
-    SiWebpack,
+    SiWebpack
 } from "react-icons/si";
 import { AnalogIcon, AzureIcon, NgrxIcon, PlaywrightIcon } from "@/data/custom-icons.tsx";
 
@@ -106,33 +106,33 @@ export const techStack: TechStack[] = [
     { name: "Kubernetes", category: "tools", proficiency: "intermediate", icon: SiKubernetes },
     { name: "Cloudflare", category: "tools", proficiency: "advanced", icon: SiCloudflare },
     { name: "Railway", category: "tools", proficiency: "intermediate", icon: SiRailway },
-    { name: "Azure", category: "tools", proficiency: "advanced", icon: AzureIcon },
+    { name: "Azure", category: "tools", proficiency: "advanced", icon: AzureIcon }
 ];
 
 export const categoryColors = {
     frontend: "#667eea",
     backend: "#f093fb",
     database: "#4facfe",
-    tools: "#43e97b",
+    tools: "#43e97b"
 };
 
 export const categoryLabels = {
     frontend: "Frontend",
     backend: "Backend",
     database: "Database",
-    tools: "Tools & DevOps",
+    tools: "Tools & DevOps"
 };
 
 export const proficiencyColors = {
     expert: "#daa420",
     advanced: "#667eea",
     intermediate: "#4facfe",
-    beginner: "#9ca3af",
+    beginner: "#9ca3af"
 };
 
 export const proficiencyLabels = {
     expert: "Expert",
     advanced: "Advanced",
     intermediate: "Intermediate",
-    beginner: "Beginner",
+    beginner: "Beginner"
 };

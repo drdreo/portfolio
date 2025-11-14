@@ -24,9 +24,9 @@ export const Hero: FC = () => {
             opacity: 1,
             transition: {
                 staggerChildren: 0.15,
-                delayChildren: 0.2,
-            },
-        },
+                delayChildren: 0.2
+            }
+        }
     };
 
     const itemVariants = {
@@ -36,9 +36,9 @@ export const Hero: FC = () => {
             y: 0,
             transition: {
                 duration: 0.8,
-                ease: "easeOut" as const,
-            },
-        },
+                ease: "easeOut" as const
+            }
+        }
     };
 
     const MotionComponent = prefersReducedMotion ? "div" : motion.div;
@@ -70,13 +70,13 @@ export const Hero: FC = () => {
                             prefersReducedMotion
                                 ? {}
                                 : {
-                                      y: [0, 10, 0],
+                                      y: [0, 10, 0]
                                   }
                         }
                         transition={{
                             duration: 2,
                             repeat: Infinity,
-                            ease: "easeInOut",
+                            ease: "easeInOut"
                         }}
                     >
                         ↓
