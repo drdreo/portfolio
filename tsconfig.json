@@ -14,7 +14,7 @@
         "isolatedModules": true,
         "moduleDetection": "force",
         "noEmit": true,
-        "jsx": "react-jsx",
+        "jsx": "preserve",
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
@@ -25,9 +25,10 @@
         "paths": {
             "@/*": ["./*"]
         },
+        "types": ["./cloudflare-env.d.ts", "node"],
         "allowJs": true,
         "incremental": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
     "exclude": ["node_modules"]
 }

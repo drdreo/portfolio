@@ -28,9 +28,9 @@ export const TechStack: FC = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.08,
-            },
-        },
+                staggerChildren: 0.08
+            }
+        }
     };
 
     const itemVariants = {
@@ -41,9 +41,9 @@ export const TechStack: FC = () => {
             y: 0,
             transition: {
                 duration: 0.4,
-                ease: "easeOut" as const,
-            },
-        },
+                ease: "easeOut" as const
+            }
+        }
     };
 
     const MotionComponent = prefersReducedMotion ? "div" : motion.div;
@@ -69,13 +69,13 @@ export const TechStack: FC = () => {
                             animate={isInView ? { opacity: 1, x: 0 } : "initial"}
                             transition={{
                                 duration: 0.5,
-                                delay: 0.2 + categoryIndex * 0.3,
+                                delay: 0.2 + categoryIndex * 0.3
                             }}
                         >
                             <span
                                 className={styles.categoryIndicator}
                                 style={{
-                                    backgroundColor: categoryColors[category],
+                                    backgroundColor: categoryColors[category]
                                 }}
                             />
                             <h3 className={styles.categoryTitle}>{categoryLabels[category]}</h3>
@@ -90,7 +90,7 @@ export const TechStack: FC = () => {
                                 isInView
                                     ? {
                                           delayChildren: 0.2 + categoryIndex * 0.3 + 0.1,
-                                          staggerChildren: 0.08,
+                                          staggerChildren: 0.08
                                       }
                                     : { staggerChildren: 0 }
                             }
@@ -111,12 +111,12 @@ export const TechStack: FC = () => {
                                                           scale: 1.05,
                                                           y: -4,
                                                           transition: {
-                                                              duration: 0.2,
-                                                          },
+                                                              duration: 0.2
+                                                          }
                                                       }
                                             }
                                             style={{
-                                                borderColor: categoryColors[category],
+                                                borderColor: categoryColors[category]
                                             }}
                                         >
                                             <div className={styles.techHeader}>
@@ -124,7 +124,7 @@ export const TechStack: FC = () => {
                                                     <IconComponent
                                                         className={styles.techIcon}
                                                         style={{
-                                                            color: categoryColors[category],
+                                                            color: categoryColors[category]
                                                         }}
                                                     />
                                                 )}
@@ -135,7 +135,7 @@ export const TechStack: FC = () => {
                                                 style={{
                                                     backgroundColor: `${proficiencyColors[tech.proficiency]}20`,
                                                     color: proficiencyColors[tech.proficiency],
-                                                    borderColor: proficiencyColors[tech.proficiency],
+                                                    borderColor: proficiencyColors[tech.proficiency]
                                                 }}
                                             >
                                                 {proficiencyLabels[tech.proficiency]}
